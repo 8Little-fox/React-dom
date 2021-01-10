@@ -1,0 +1,7 @@
+.todoList{
+    display: grid;
+    grid-template-columns: 10% 85% 5%;
+    width: 100%;
+    /* justify-content: s; */
+    /* grid-template-columns: 20% 50% 10%; */
+}
