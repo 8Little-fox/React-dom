@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 14:56:29
- * @LastEditTime: 2021-01-09 20:29:02
+ * @LastEditTime: 2021-01-10 13:56:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\index.js
@@ -17,26 +17,32 @@ class todoList extends Component {
             content: '',
             list: []
         }
+        this.handlChange=this.handlChange.bind(this) // 搜索事件
+        this.handlDel=this.handlDel.bind(this)     // 删除
+        this.handlAdd=this.handlAdd.bind(this)   // 新增列表
     }
     // 新增列表
     handlAdd() {
-        this.setState({
-            list: [...this.state.list, this.state.content],
+        // prevState 改变之前的数据相当与this.state
+        this.setState((prevState) => ({
+            list: [...prevState.list, prevState.content],
             content: ''
-        })
+        }))
     }
     // 搜索事件
     handlChange(e) {
-        this.setState({
-            content: e.target.value
-        })
+        // 外部对值进行保存
+        const value = e.target.value
+        // 异步
+        this.setState(() => ({ content: value }))
+
     }
     // 删除
-    handlDel(index){
-        let list=[...this.state.list]
-        list.splice(index,1)
-        this.setState({
-            list:list
+    handlDel(index) {
+        this.setState((prevState) => {
+            let list = [...prevState.list]
+            list.splice(index, 1)
+            return { list }
         })
     }
     render() {
@@ -47,11 +53,11 @@ class todoList extends Component {
                     allowClear
                     style={{ width: 300, margin: '20px' }}
                     value={this.state.content}
-                    onChange={this.handlChange.bind(this)}
+                    onChange={this.handlChange}
                 />
-                <Button type="primary" onClick={this.handlAdd.bind(this)}>Add</Button>
-                <TodoItem list={this.state.list} deleteItem={this.handlDel.bind(this)}/>
-              
+                <Button type="primary" onClick={this.handlAdd}>Add</Button>
+                <TodoItem list={this.state.list} deleteItem={this.handlDel} />
+
             </Fragment>
         );
     }

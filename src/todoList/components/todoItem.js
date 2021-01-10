@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 20:03:18
- * @LastEditTime: 2021-01-10 13:02:18
+ * @LastEditTime: 2021-01-10 13:59:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\todoItem.js
@@ -12,7 +12,6 @@ import '../index.css'
 class todoItem extends Component {
     constructor(props){
         super(props)
-    //   this.deleteItem=this.deleteItem.bind(this)
     }
     //删除
     deleteItem(index){
