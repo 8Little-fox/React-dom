@@ -1,17 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 20:03:18
- * @LastEditTime: 2021-01-10 13:59:42
+ * @LastEditTime: 2021-01-10 15:53:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\todoItem.js
  */
 import React, { Component, Fragment } from 'react';
 import { Button,List, Typography, Divider } from 'antd';
+import PropTypes from 'prop-types';
 import '../index.css'
-class todoItem extends Component {
+class TodoItem extends Component {
     constructor(props){
         super(props)
+    //   this.deleteItem=this.deleteItem.bind(this)
     }
     //删除
     deleteItem(index){
@@ -40,5 +42,12 @@ class todoItem extends Component {
         )
     }
 }
-
-export default todoItem;
+// 检测传值类型
+TodoItem.propTypes = {
+    list: PropTypes.array
+  };
+// // 传值给默认值
+// TodoItem.defaultProps={
+//     test:'Hello World'
+// }
+export default TodoItem;
