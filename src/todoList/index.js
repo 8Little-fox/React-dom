@@ -1,59 +1,53 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 14:56:29
- * @LastEditTime: 2021-01-10 17:26:11
+ * @LastEditTime: 2021-01-11 16:31:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\index.js
  */
 import React, { Component, Fragment } from 'react';
-import { Button, Input, List, Typography, Divider } from 'antd';
-import axios from 'axios'
+import { Button, Input } from 'antd';
+// import axios from 'axios'
+import store from '../store'
+import {getAddTodoListAction,getTodoListAction,getDelTodoListAction} from '../store/actionCreators'
 import './index.css';
 import TodoItem from './components/todoItem'
 class todoList extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            content: '',
-            list: []
-        }
-        this.handlChange=this.handlChange.bind(this) // 搜索事件
-        this.handlDel=this.handlDel.bind(this)     // 删除
-        this.handlAdd=this.handlAdd.bind(this)   // 新增列表
+        /**
+        * @description: 
+        * getState() 获取store 的数据
+        *  subscribe()  监听store变化的函数             
+        * @param {*}
+        * @return {*}
+        */
+        this.state = store.getState()
+        this.handlState = this.handlState.bind(this)
+        store.subscribe(this.handlState)
+        console.log("store", this.state)
+        this.handlChange = this.handlChange.bind(this) // 搜索事件
+        this.handlDel = this.handlDel.bind(this)     // 删除
+        this.handlAdd = this.handlAdd.bind(this)   // 新增列表
     }
     // 新增列表
     handlAdd() {
-        // prevState 改变之前的数据相当与this.state
-        this.setState((prevState) => ({
-            list: [...prevState.list, prevState.content],
-            content: ''
-        }))
+       const action =getAddTodoListAction()
+        store.dispatch(action)
     }
     // 搜索事件
     handlChange(e) {
-        // 外部对值进行保存
-        const value = e.target.value
-        // 异步
-        this.setState(() => ({ content: value }))
-
+        const action = getTodoListAction(e.target.value)
+        store.dispatch(action)
     }
     // 删除
     handlDel(index) {
-        this.setState((prevState) => {
-            let list = [...prevState.list]
-            list.splice(index, 1)
-            return { list }
-        })
+        const action = getDelTodoListAction(index)
+        store.dispatch(action)
     }
-    // 数据请求
-    componentDidMount(){
-        // axios.get('').then(()=>{
-        //     alert('succ')
-        // })
-        // .catch(()=>{
-        //     alert('error')
-        // })
+    handlState() {
+      this.setState(()=>(this.state = store.getState()))
     }
     render() {
         return (
