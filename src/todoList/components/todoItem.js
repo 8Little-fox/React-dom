@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 20:03:18
- * @LastEditTime: 2021-01-10 15:53:05
+ * @LastEditTime: 2021-01-10 17:15:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\todoItem.js
@@ -20,7 +20,18 @@ class TodoItem extends Component {
         console.log(index)
         this.props.deleteItem(index)
     }
+    // 组件更新之前(避免父组件render更新组件中随之更新，降低性能得消耗)
+    shouldComponentUpdate(nextProps,nextState){
+        console.log(nextProps,nextState);
+        
+        if(nextProps.list!==this.props.list){
+            return true
+        }else{
+            return false;
+        }
+    }
     render(){
+        console.log("child render")
         return(
             <Fragment>
                   <Divider orientation="left">Default Size</Divider>

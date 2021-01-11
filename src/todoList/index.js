@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-01-09 14:56:29
- * @LastEditTime: 2021-01-10 14:43:31
+ * @LastEditTime: 2021-01-10 17:26:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-base\src\todoList\index.js
  */
 import React, { Component, Fragment } from 'react';
 import { Button, Input, List, Typography, Divider } from 'antd';
+import axios from 'axios'
 import './index.css';
 import TodoItem from './components/todoItem'
 class todoList extends Component {
@@ -44,6 +45,15 @@ class todoList extends Component {
             list.splice(index, 1)
             return { list }
         })
+    }
+    // 数据请求
+    componentDidMount(){
+        // axios.get('').then(()=>{
+        //     alert('succ')
+        // })
+        // .catch(()=>{
+        //     alert('error')
+        // })
     }
     render() {
         return (
